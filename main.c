@@ -20,5 +20,6 @@ int main()
 	getline(&mj_input, &size, stdin);
 
 	printf("%s\n", mj_input);
+	free(mjinput);
 	return (0);
 }
