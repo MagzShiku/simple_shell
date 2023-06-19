@@ -13,7 +13,7 @@ int main(void)
 	int cndtn;
 
 	size = 0;
-	mj_c_prompt = "mjshell";
+	mj_c_prompt = "mjshell$";
 
 	cndtn = 1; /*creates an infinite loop while checking true (1)*/
 	for (; cndtn; )
