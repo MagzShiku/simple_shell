@@ -11,6 +11,7 @@ int main(void)
 	char *mj_input; /* a pointer to buffer input from stdin*/
 	size_t size; /*stores allocated memory in bytes*/
 	int cndtn;
+	ssize_t _n_read; /*checks for number of characters read*/
 
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
@@ -19,7 +20,13 @@ int main(void)
 	for (; cndtn; )
 	{
 		printf("%s", mj_c_prompt);
-		getline(&mj_input, &size, stdin);
+		_n_read = getline(&mj_input, &size, stdin);
+
+		if (_n_read == -1)
+		{
+			printf(" \n");
+			return (-1);
+		}
 
 		printf("%s\n", mj_input);
 		free(mj_input);
