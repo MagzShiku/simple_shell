@@ -1,4 +1,4 @@
-a simple shell emulating the bash shell
+A simple shell emulating the bash shell
 
 Authors:
 Jeniffer Mairura
