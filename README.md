@@ -1,5 +1,5 @@
 A simple shell emulating the bash shell
 
 Authors:
-Jeniffer Mairura
+Jeniffer Mairura &&
 Magdaline Njuguna
