@@ -10,7 +10,7 @@ int main(void)
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
 	size_t size; /*stores allocated memory in bytes*/
-	int cndtn; /* loop counter for the true value loop*/
+	int cndtn; /* loop counter for the true value for loop*/
 	ssize_t _n_read; /*checks for number of characters read*/
 
 	size = 0;
