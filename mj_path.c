@@ -1,52 +1,55 @@
 #include "main.h"
 
-typedef struct stat StatBuffer;
+/**
+ * mj_path - function to get the full path
+ * @mj_cmd: the command whose path we are getting
+ * Return: NULL
+ */
 
 char *mj_path(char *mj_cmd)
 {
-  char *_path;
-  char *_path2;
-  char *tkn_path;
-  int len_cmd;
-  int len_dir;
-  char *ex_fl_path;
-  StatBuffer mj_buffer;
-  
+	char *path_env;
+	char *path;
+	char *tkn_path;
+	size_t len;
+	char *full_path;
+	struct stat st;
 
-  _path = getenv("PATH");
+	path_env = getenv("PATH");
 
-  if (_path)
-  {
-    _path2 = strdup(_path);
-    len_cmd = strlen(mj_cmd);
-    tkn_path = strtok(_path2, ":");
+	if (path_env == NULL)
+		return (NULL);
 
-    for (; tkn_path != NULL; tkn_path = strtok(NULL, ":"))
-    {
-      len_dir = strlen(tkn_path);
-      ex_fl_path = malloc(len_cmd + len_dir + 2);
-      strcpy(ex_fl_path, tkn_path);
-      strcat(ex_fl_path, ""\"");
-      strcat(ex_fl_path, mj_cmd);
-      strcat(ex_fl_path, "\0");
+	path = strdup(path_env);
+	if (path == NULL)
+		return (NULL);
 
-      if (stat(ex_fl_path, &mj_buffer) == 0)
-      {
-        free(_path2);
-        return (ex_fl_path);
-      }
-      else
-      {
-        free(ex_fl_path);
-      }
-    }
-     free(_path2);
+	tkn_path = strtok(path, ":");
 
-    if (stat(mj_cmd, &mj_buffer) == 0)
-    {
-      return (mj_cmd);
-    }
-  return (NULL);
-  }
-    return (NULL);
+	while (tkn_path != NULL)
+	{
+		len = strlen(tkn_path) + strlen(mj_cmd) + 2;
+		full_path = malloc(len);
+
+		if (full_path == NULL)
+		{
+			free(path);
+			return (full_path);
+		}
+
+		strcpy(full_path, tkn_path);
+		strcat(full_path, "/");
+		strcat(full_path, mj_cmd);
+
+		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
+		{
+			free(path);
+			return (full_path);
+		}
+
+		free(full_path);
+		tkn_path = strtok(NULL, ":");
+	}
+	free(path);
+	return (NULL);
 }

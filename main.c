@@ -24,13 +24,13 @@ char *mj_input_copy_fn(const char *mj_input)
 	strcpy(mj_input_copy, mj_input);
 	return (mj_input_copy);
 }
-
 /**
  * main - main program entry point
+ * @argc: Argument count
+ * @argv: argument vector
  * Return: 0 for success
  */
-
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
+int main(int argc, char *argv[])
 {
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
@@ -44,7 +44,8 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 	char *args[MAX_ARGS];
 	int i;
 	char **cmd_args;
-
+	(void)argc;
+	(void)argv;
 
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
@@ -72,7 +73,6 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 			printf("Failed to allocate memory.\n");
 			break;
 		}
-
 		token = strtok(mj_input, delim);
 		for (; token != NULL; token = strtok(NULL, delim))
 		{
@@ -95,7 +95,6 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 				perror("malloc failed");
 				break;
 			}
-		
 
 			for (i = 0; i < token_num; i++)
 			{
