@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 		if (_n_read == -1)
 		{
 			printf("Disconnected. \n");
-			break;
+			return (-1);
 		}
 
 		mj_input[strcspn(mj_input, "\n")] = '\0';
