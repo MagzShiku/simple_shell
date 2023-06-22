@@ -1,6 +1,7 @@
 #include "main.h"
 #define MAX_ARGS 10
-void mj_execve(char *argv[]);
+
+
 /**
  * mj_input_copy_fn - function to copy mj_input
  * @mj_input: the variable holding strings to copy
@@ -46,13 +47,13 @@ int main(int argc, char *argv[])
 	char **cmd_args;
 	(void)argc;
 	(void)argv;
-
+	
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
 	mj_input = NULL;
 	token_num = 0;
 	delim = " ";
-
+	
 	cndtn = 1; /*creates an infinite loop while checking true (1)*/
 	for (; cndtn; )
 	{
