@@ -1,5 +1,6 @@
 #include "main.h"
-
+#define MAX_ARGS 10
+void mj_execve(char *argv[]);
 /**
  * mj_input_copy_fn - function to copy mj_input
  * @mj_input: the variable holding strings to copy
@@ -21,7 +22,7 @@ char *mj_input_copy_fn(const char *mj_input)
 	}
 
 	strcpy(mj_input_copy, mj_input);
-	return mj_input_copy;
+	return (mj_input_copy);
 }
 
 /**
@@ -29,7 +30,7 @@ char *mj_input_copy_fn(const char *mj_input)
  * Return: 0 for success
  */
 
-int main(int argc, char **argv)
+int main(void)
 {
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
@@ -40,7 +41,8 @@ int main(int argc, char **argv)
 	int token_num;
 	char *token;
 	char *mj_input_copy;
-	(void)argc;
+	char *args[MAX_ARGS];
+	int i;
 
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
@@ -66,16 +68,30 @@ int main(int argc, char **argv)
 		if (mj_input_copy == NULL)
 		{
 			printf("Failed to allocate memory.\n");
-			break;		
+			break;
 		}
 
 		token = strtok(mj_input, delim);
-		for (; token != NULL; token_num++)
+		for (; token != NULL; token = strtok(NULL, delim))
 		{
-			token = strtok(NULL, delim);
+			if (token_num >= MAX_ARGS - 1)
+			{
+				printf("Too many arguments.\n");
+				break;
+			}
+			args[token_num] = malloc(strlen(token) + 1);
+			strcpy(args[token_num], token);
+			token_num++;
+
 		}
-		
-		argv[token_num] = NULL;
+		args[token_num] = NULL;
+
+		for (i = 0; i < token_num; i++)
+		{
+			mj_execve(args);
+			free(args[i]);
+		}
+
 		free(mj_input_copy);
 		mj_input_copy = NULL;
 		token_num = 0;
@@ -83,6 +99,6 @@ int main(int argc, char **argv)
 
 	free(mj_input);
 	mj_input = NULL;
-	
+
 	return (0);
 }
