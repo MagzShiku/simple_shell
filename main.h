@@ -5,5 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
+char *mj_input_copy_fn(const char *mj_input);
 
 #endif /*MAIN_H*/
