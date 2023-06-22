@@ -30,7 +30,7 @@ char *mj_input_copy_fn(const char *mj_input)
  * Return: 0 for success
  */
 
-int main(void)
+int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 {
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
@@ -43,6 +43,8 @@ int main(void)
 	char *mj_input_copy;
 	char *args[MAX_ARGS];
 	int i;
+	char **cmd_args;
+	char *cmd;
 
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
@@ -79,8 +81,7 @@ int main(void)
 				printf("Too many arguments.\n");
 				break;
 			}
-			args[token_num] = malloc(strlen(token) + 1);
-			strcpy(args[token_num], token);
+			args[token_num] = strdup(token);
 			token_num++;
 
 		}
@@ -88,8 +89,16 @@ int main(void)
 
 		for (i = 0; i < token_num; i++)
 		{
-			mj_execve(args);
+			cmd = args[i];
+			cmd_args = malloc(sizeof(char *) * 2);
+			cmd_args[0] = cmd;
+			cmd_args[1] = NULL;
+
+			mj_execve(cmd_args);
+
+			free(cmd_args);
 			free(args[i]);
+
 		}
 
 		free(mj_input_copy);

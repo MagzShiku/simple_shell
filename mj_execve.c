@@ -14,14 +14,23 @@ void mj_execve(char *argv[])
 	mj_cmd = NULL;
 	the_cmd = NULL;
 
-	if (argv)
+	if (argv != NULL && argv[0] != NULL)
 	{
 		mj_cmd = argv[0];
 		the_cmd = mj_path(mj_cmd);
 
-		if (execve(the_cmd, argv, NULL) == -1)
+		if (the_cmd != NULL)
 		{
-			perror("mjshell Error:");
+			if (execve(the_cmd, argv, NULL) == -1)
+			{
+				perror("mjshell Error");
+			}
+			exit(EXIT_FAILURE);
+		}
+		else
+		{
+			fprintf(stderr, "mjshell: Command not found: %s\n", mj_cmd);
+			exit(EXIT_FAILURE);
 		}
 	}
 }
