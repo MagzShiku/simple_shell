@@ -36,7 +36,6 @@ int main(int argc, char *argv[])
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
 	size_t size; /*stores allocated memory in bytes*/
-	int cndtn;
 	ssize_t _n_read; /*checks for number of characters read*/
 	const char *delim;
 	int token_num;
@@ -47,18 +46,17 @@ int main(int argc, char *argv[])
 	char **cmd_args;
 	(void)argc;
 	(void)argv;
-	
+		
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
 	mj_input = NULL;
 	token_num = 0;
 	delim = " ";
-	
-	
-	cndtn = 1;
-	for (; cndtn; )
+		
+	while (1)
 	{
 		printf("%s", mj_c_prompt);
+		free(mj_input);
 		_n_read = getline(&mj_input, &size, stdin);
 
 		if (_n_read == -1)
@@ -75,6 +73,10 @@ int main(int argc, char *argv[])
 			printf("Failed to allocate memory.\n");
 			break;
 		}
+		
+		if (strcmp(mj_input, "exit") == 0)
+			break;
+
 		token = strtok(mj_input, delim);
 		for (; token != NULL; token = strtok(NULL, delim))
 		{
