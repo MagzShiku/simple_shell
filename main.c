@@ -44,13 +44,13 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 	char *args[MAX_ARGS];
 	int i;
 	char **cmd_args;
-	char *cmd;
+
 
 	size = 0;
 	mj_c_prompt = "mjshell$ ";
 	mj_input = NULL;
 	token_num = 0;
-	delim = "\n";
+	delim = " ";
 
 	cndtn = 1; /*creates an infinite loop while checking true (1)*/
 	for (; cndtn; )
@@ -87,20 +87,25 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char *argv[])
 		}
 		args[token_num] = NULL;
 
-		for (i = 0; i < token_num; i++)
+		if (token_num > 0)
 		{
-			cmd = args[i];
-			cmd_args = malloc(sizeof(char *) * 2);
-			cmd_args[0] = cmd;
-			cmd_args[1] = NULL;
+			cmd_args = malloc(sizeof(char *) * (token_num + 1));
+			if (cmd_args == NULL)
+			{
+				perror("malloc failed");
+				break;
+			}
+		
 
+			for (i = 0; i < token_num; i++)
+			{
+				cmd_args[i] = args[i];
+
+			}
+			cmd_args[token_num] = NULL;
 			mj_execve(cmd_args);
-
 			free(cmd_args);
-			free(args[i]);
-
 		}
-
 		free(mj_input_copy);
 		mj_input_copy = NULL;
 		token_num = 0;
