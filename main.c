@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 	char *mj_c_prompt;
 	char *mj_input; /* a pointer to buffer input from stdin*/
 	size_t size; /*stores allocated memory in bytes*/
-	int cndtn; /* loop counter for the true value for loop*/
+	int cndtn;
 	ssize_t _n_read; /*checks for number of characters read*/
 	const char *delim;
 	int token_num;
@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
 	token_num = 0;
 	delim = " ";
 	
-	cndtn = 1; /*creates an infinite loop while checking true (1)*/
+	
+	cndtn = 1;
 	for (; cndtn; )
 	{
 		printf("%s", mj_c_prompt);
@@ -103,7 +104,7 @@ int main(int argc, char *argv[])
 
 			}
 			cmd_args[token_num] = NULL;
-			mj_execve(cmd_args);
+			mj_execve(cmd_args);			
 			free(cmd_args);
 		}
 		free(mj_input_copy);

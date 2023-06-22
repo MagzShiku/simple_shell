@@ -11,7 +11,7 @@ void mj_execve(char *argv[])
 {
 	char *mj_cmd;
 	char *the_cmd;
-	
+
 	mj_cmd = NULL;
 	the_cmd = NULL;
 

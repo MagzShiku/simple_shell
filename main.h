@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 char *mj_input_copy_fn(const char *mj_input);
 void mj_execve(char *argv[]);
