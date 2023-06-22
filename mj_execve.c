@@ -21,7 +21,7 @@ void mj_execve(char *argv[])
 
 		if (the_cmd != NULL)
 		{
-			if (execve(the_cmd, argv, NULL) == -1)
+			if (execve(the_cmd, argv) == -1)
 			{
 				perror("mjshell Error");
 			}
