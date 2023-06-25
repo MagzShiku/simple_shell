@@ -34,7 +34,7 @@ char *mj_path(char *mj_cmd)
 		if (full_path == NULL)
 		{
 			free(path);
-			return (full_path);
+			return (NULL);
 		}
 
 		strcpy(full_path, tkn_path);

@@ -74,9 +74,6 @@ int main(int argc, char *argv[])
 			break;
 		}
 		
-		if (strcmp(mj_input, "exit") == 0)
-			break;
-
 		token = strtok(mj_input, delim);
 		for (; token != NULL; token = strtok(NULL, delim))
 		{
@@ -109,9 +106,18 @@ int main(int argc, char *argv[])
 			mj_execve(cmd_args);			
 			free(cmd_args);
 		}
+
+		if (strcmp(mj_input, "exit") == 0)
+		{
+			free(mj_input_copy);
+			break;
+
+		}
 		free(mj_input_copy);
 		mj_input_copy = NULL;
 		token_num = 0;
+
+		printf("\n");
 	}
 
 	free(mj_input);

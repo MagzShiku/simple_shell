@@ -26,12 +26,10 @@ void mj_execve(char *argv[])
 			{
 				perror("mjshell Error");
 			}
-			exit(EXIT_FAILURE);
 		}
 		else
 		{
 			fprintf(stderr, "mjshell: Command not found: %s\n", mj_cmd);
-			exit(EXIT_FAILURE);
 		}
 	}
 }
