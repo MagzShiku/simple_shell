@@ -9,8 +9,9 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-char *mj_input_copy_fn(const char *mj_input);
-void mj_execve(char *argv[]);
+void mj_execve(char **args);
 char *mj_path(char *mj_cmd);
+int token_input(char *input, char **args);
+void free_tokens(char **args, int token_num);
 
 #endif /*MAIN_H*/

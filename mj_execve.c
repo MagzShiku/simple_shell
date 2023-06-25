@@ -4,32 +4,34 @@
 /**
  * mj_execve - A function to execute a command
  *
- * @argv: an argument
+ * @args: an argument
  */
 
-void mj_execve(char *argv[])
+void mj_execve(char **args)
 {
-	char *mj_cmd;
-	char *the_cmd;
+	pid_t mj_pid;
+	int status;
 
-	mj_cmd = NULL;
-	the_cmd = NULL;
+	mj_pid = fork();
 
-	if (argv != NULL && argv[0] != NULL)
+	if (mj_pid == 0)
 	{
-		mj_cmd = argv[0];
-		the_cmd = mj_path(mj_cmd);
+		execvp(args[0], args);
+		fprintf(stderr, "Error: command failed...\n");
+		fprintf(stderr, "Exiting...\n");
+		exit(EXIT_FAILURE);
+	}
+	else if (mj_pid < 0)
+	{
+		fprintf(stderr, "Error: forking failed...\n");
+		fprintf(stderr, "Exiting...\n");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		do {
+			waitpid(mj_pid, &status, WUNTRACED);
 
-		if (the_cmd != NULL)
-		{
-			if (execve(the_cmd, argv, NULL) == -1)
-			{
-				perror("mjshell Error");
-			}
-		}
-		else
-		{
-			fprintf(stderr, "mjshell: Command not found: %s\n", mj_cmd);
-		}
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 }

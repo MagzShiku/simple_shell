@@ -16,37 +16,29 @@ char *mj_path(char *mj_cmd)
 	struct stat st;
 
 	path_env = getenv("PATH");
-
 	if (path_env == NULL)
 		return (NULL);
-
 	path = strdup(path_env);
 	if (path == NULL)
 		return (NULL);
-
 	tkn_path = strtok(path, ":");
-
 	while (tkn_path != NULL)
 	{
 		len = strlen(tkn_path) + strlen(mj_cmd) + 2;
 		full_path = malloc(len);
-
 		if (full_path == NULL)
 		{
 			free(path);
 			return (NULL);
 		}
-
 		strcpy(full_path, tkn_path);
 		strcat(full_path, "/");
 		strcat(full_path, mj_cmd);
-
 		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
 		{
 			free(path);
 			return (full_path);
 		}
-
 		free(full_path);
 		tkn_path = strtok(NULL, ":");
 	}
