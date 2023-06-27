@@ -1,9 +1,10 @@
 #include "main"
-/** main - entry point 
- * @
- * Return:0
- */
-int mjcmdHandling(char** str_mj)
+/** 
+* mjcmdHandling- A function that handles builtin functions in a simple shell
+* @str_mj: the parsed string
+* Return:0
+*/
+int mjcmdHandling(char **str_mj)
 {
 	int Cmds_num = 1024;
 	int mj;
