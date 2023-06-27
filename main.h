@@ -16,5 +16,10 @@ void mj_execve(char **args);
 void pipe_commands(char **com1, char **com2);
 int pipe_checker(char *input, char **commands);
 char *mj_path(char *mj_cmd);
+int pipe_checker(char *input, char **commands);
+int pipe_maker(int mjPipe[2]);
+void mjExecutePipe(char **command, int mjPipe[2]);
+void awaitingChildren(void);
+void pipe_commands(char **com1, char **com2);
 
 #endif /*MAIN_H*/

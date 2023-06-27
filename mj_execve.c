@@ -11,7 +11,7 @@ void mj_execve(char **args)
 {
 	pid_t mj_pid;
 	int status;
-			
+
 	mj_pid = fork();
 
 	if (mj_pid == 0)
