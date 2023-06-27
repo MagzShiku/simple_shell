@@ -1,4 +1,4 @@
-#include "main"
+#include "main.h"
 /** 
 * mjcmdHandling- A function that handles builtin functions in a simple shell
 * @str_mj: the parsed string
