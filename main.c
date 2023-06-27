@@ -1,5 +1,12 @@
 #include "main.h"
-#define MAX_ARRGS 10
+#define MAX_ARRGS 100
+
+int token_input(char *input, char **args);
+void free_tokens(char **args, int token_num);
+void input_handler(char *mj_input);
+void mj_execve(char **args);
+void pipe_commands(char **com1, char **com2);
+int pipe_checker(char *input, char **commands);
 
 /**
  * token_input - function to tokenize inout
@@ -48,9 +55,6 @@ int main(void)
 	char *mj_input = NULL;
 	size_t size = 0;
 	ssize_t _n_read;
-	int token_num;
-	char *args[MAX_ARRGS];
-	char *mj_input_copy;
 
 	while (1)
 	{
@@ -62,26 +66,66 @@ int main(void)
 			printf("Disconnected...\n");
 			break;
 		}
-		mj_input[strcspn(mj_input, "\n")] = '\0';
-		mj_input_copy = strdup(mj_input);
-		if (mj_input_copy == NULL)
-		{
-			fprintf(stderr, "Error: failure to allocate memory\n");
-			break;
-		}
-		if (strcmp(mj_input, "exit") == 0)
-		{
-			free(mj_input_copy);
-			break;
-		}
-		token_num = token_input(mj_input_copy, args);
-		if (token_num > 0)
-			mj_execve(args);
-		else
-			printf("No command entered...\n");
-		free_tokens(args, token_num);
-		free(mj_input_copy);
+		input_handler(mj_input);
 	}
 	free(mj_input);
 	return (0);
+}
+/**
+ * input_handler - function to handle user input
+ * @mj_input: the input
+ */
+void input_handler(char *mj_input)
+{
+	char *the_pipe;
+	char *mj_input_copy;
+	char *com1;
+	char *com2;
+	int token_num;
+	char *args[MAX_ARRGS];
+	/*int res;*/
+
+	mj_input[strcspn(mj_input, "\n")] = '\0';
+	mj_input_copy = strdup(mj_input);
+	if (mj_input_copy == NULL)
+	{
+		fprintf(stderr, "Error: failure to allocate memory\n");
+		return;
+	}
+	if (strcmp(mj_input, "exit") == 0)
+	{
+		free(mj_input);
+		exit(EXIT_SUCCESS);
+	}
+	/**
+	 * we are adding here code that
+	 * calls token_input
+	 * pipe_commands
+	 * free_token
+	 * mj_execve
+	 */
+	token_num = token_input(mj_input, args);
+	/*res = mjcmdHandling(args);*/
+
+	the_pipe = strchr(mj_input, '|');
+	if (the_pipe != NULL)
+	{
+		*the_pipe = '\0';
+		com1 = mj_input;
+		com2 = the_pipe + 1;
+		pipe_commands(&com1, &com2);
+	}
+	else
+	{
+		if (token_num > 0)
+		{
+			mj_execve(args);
+		}
+		else
+		{
+			printf("No command entered...\n");
+		}
+		free_tokens(args, token_num);
+	}
+	free(mj_input_copy);
 }
