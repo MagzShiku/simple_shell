@@ -3,7 +3,7 @@
  * pipe_checker - helps us be on the lookout for pipe
  * @input: the input
  * @commands: well, the commands
- * Return: 1 on lail, 0 on no pipe
+ * Return: 1 on lail, 0 on no pipe what to do
  */
 int pipe_checker(char *input, char **commands)
 {
