@@ -12,7 +12,7 @@ int pipe_checker(char *input, char **commands);
  * token_input - function to tokenize inout
  * @input: the variable name to hold the user input
  * @args: the parameter to hold the arguments
- * Return: the number of tokens token_num
+ * Return: the number of tokens token_num inserted
  */
 int token_input(char *input, char **args)
 {
