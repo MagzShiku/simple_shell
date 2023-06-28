@@ -23,6 +23,10 @@ int token_input(char *input, char **args)
 	while (token != NULL && token_num < MAX_ARRGS - 1)
 	{
 		args[token_num] = strdup(token);
+		{
+			free_tokens(args, token_num);
+			return -1;
+		}
 		token_num++;
 		token = strtok(NULL, delim);
 	}
@@ -54,14 +58,14 @@ int main(void)
 	char *mj_c_prompt = "mjshell$ ";
 	char *mj_input = NULL;
 	size_t size = 0;
-	ssize_t _n_read;
+	ssize_t n_read;
 
 	while (1)
 	{
 		printf("%s", mj_c_prompt);
-		_n_read = getline(&mj_input, &size, stdin);
+		n_read = getline(&mj_input, &size, stdin);
 
-		if (_n_read == -1)
+		if (n_read == -1)
 		{
 			printf("Disconnected...\n");
 			break;
@@ -83,7 +87,6 @@ void input_handler(char *mj_input)
 	char *com2;
 	int token_num;
 	char *args[MAX_ARRGS];
-	/*int res;*/
 
 	mj_input[strcspn(mj_input, "\n")] = '\0';
 	mj_input_copy = strdup(mj_input);
@@ -105,7 +108,6 @@ void input_handler(char *mj_input)
 	 * mj_execve
 	 */
 	token_num = token_input(mj_input, args);
-	/*res = mjcmdHandling(args);*/
 
 	the_pipe = strchr(mj_input, '|');
 	if (the_pipe != NULL)

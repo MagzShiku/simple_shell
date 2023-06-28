@@ -5,7 +5,6 @@
  * @mj_cmd: the command whose path we are getting
  * Return: NULL
  */
-
 char *mj_path(char *mj_cmd)
 {
 	char *path_env;
