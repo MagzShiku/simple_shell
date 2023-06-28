@@ -1,7 +1,7 @@
 #include "main.h"
 /** 
 * mjcmdHandling- A function that handles builtin functions in a simple shell
-* @str_mj: the parsed string
+* @str_mj: the parsed strings inserted
 * Return:0
 */
 int mjcmdHandling(char **str_mj)
