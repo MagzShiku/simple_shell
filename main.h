@@ -17,4 +17,4 @@ void pipe_commands(char **com1, char **com2);
 int pipe_checker(char *input, char **commands);
 char *mj_path(char *mj_cmd);
 
-#endif /*MAIN_H*/ 
+#endif /*MAIN_H*/
