@@ -4,7 +4,7 @@
 /**
  * mj_execve - A function to execute a command
  *
- * @args: an argument
+ * @args: an argument in the function
  */
 
 void mj_execve(char **args)
