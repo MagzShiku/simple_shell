@@ -2,7 +2,7 @@
 
 /**
  * mj_path - function to get the full path
- * @mj_cmd: the command whose path we are getting
+ * @mj_cmd: the command whose path we are getting what a path
  * Return: NULL
  */
 
