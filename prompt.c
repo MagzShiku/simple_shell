@@ -2,7 +2,7 @@
 *  *    Programmed By: Mohammed Isam [mohammed_isam1984@yahoo.com]
 *   *    Copyright 2020 (c)
 *    * 
-*     *    file: shell.h
+*     *    file: prompt.c
 *      *    This file is part of the "Let's Build a Linux Shell" tutorial.
 *       *
 *        *    This tutorial is free software: you can redistribute it and/or modify
@@ -17,35 +17,38 @@
 *                 *
 *                  *    You should have received a copy of the GNU General Public License
 *                   *    along with this tutorial.  If not, see <http://www.gnu.org/licenses/>.
-*                    */
+*                    */    
 
-#ifndef SHELL_H
-#define SHELL_H
+#include <stdio.h>
+#include "shell.h"
+#include "symtab/symtab.h"
 
-void print_prompt1(void);
-void print_prompt2(void);
 
-char *read_cmd(void);
-
-#include "source.h"
-int  parse_and_execute(struct source_s *src);
-
-void initsh(void);
-
-/* shell builtin utilities */
-int dump(int argc, char **argv);
-
-/* struct for builtin utilities */
-struct builtin_s
+void print_prompt1(void)
 {
-char *name;    /* utility name */
-int (*func)(int argc, char **argv); /* function to call to execute the utility */
-};
+struct symtab_entry_s *entry = get_symtab_entry("PS1");
 
-/* the list of builtin utilities */
-extern struct builtin_s builtins[];
+if(entry && entry->val)
+{
+fprintf(stderr, "%s", entry->val);
+}
+else
+{
+fprintf(stderr, "$ ");
+}
+}
 
-/* and their count */
-extern int builtins_count;
 
-#endif
+void print_prompt2(void)
+{
+struct symtab_entry_s *entry = get_symtab_entry("PS2");
+
+if(entry && entry->val)
+{
+fprintf(stderr, "%s", entry->val);
+}
+else
+{
+fprintf(stderr, "> ");
+}
+}
