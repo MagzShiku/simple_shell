@@ -8,6 +8,7 @@
 int mjEnvironment(char **args)
 {
 	int mj;
+	mj = 0;
 
 	(void)(**args);
 

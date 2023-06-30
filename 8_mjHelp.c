@@ -26,7 +26,6 @@ int mjHelp(char **args)
 	for (; mj < sizeof(blt_in) / sizeof(char *); mj++)
 	{
 		printf(" -> %s\n", blt_in[mj]);
-		i++;
 	}
 
 	printf("you can man also.\n");
