@@ -8,7 +8,7 @@ char *strmRead(void)
 	int i = 0;
 	int bufSize = 1024;
 	char *input;
-	char c;
+	int c;
 
 	input = malloc(sizeof(char) * bufSize);
 	if (!input)
@@ -34,9 +34,9 @@ char *strmRead(void)
 			input[i] = c;
 		}
 		i++;
-		while (i >= bufSize)
+		if (i >= bufSize)
 		{
-			bufSize += bufSize;
+			bufSize *= 2;
 			input = realloc(input, bufSize);
 			if (!input)
 			{

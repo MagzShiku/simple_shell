@@ -8,7 +8,7 @@
 
 int mjCommands(char **args)
 {
-	if (!args[1])
+	if (args[1] == NULL)
 	{
 		fprintf(stderr, "did you mean \"cd\"\n");
 	}

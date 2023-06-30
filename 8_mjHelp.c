@@ -7,14 +7,14 @@
 
 int mjHelp(char **args)
 {
-	unsigned long int i = 0;
+	unsigned long int mj = 0;
 	char *blt_in[] = {
 		"cd",
 		"env",
 		"help",
 		"exit"
 	};
-
+	mj = 0;
 	(void)(**args);
 
 	printf("\n --Hallo, how can I help you--\n");
@@ -22,10 +22,10 @@ int mjHelp(char **args)
 	printf("press Enter\n");
 	printf("The built in commands\n");
 
-	i = 0;
-	while (i < sizeof(blt_in) / sizeof(char *))
+
+	for (; mj < sizeof(blt_in) / sizeof(char *); mj++)
 	{
-		printf(" -> %s\n", blt_in[i]);
+		printf(" -> %s\n", blt_in[mj]);
 		i++;
 	}
 
