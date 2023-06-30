@@ -24,20 +24,17 @@ int execveArgs(char **args)
 
 	};
 
-	if (!args[0])
+	if (args[0] == NULL)
 	{
 		return (-1);
 	}
-
 	i = 0;
-
-	while (i < sizeof(blt_in) / sizeof(char *))
+	for (; i < sizeof(blt_in) / sizeof(char *); i++)
 	{
 		if (strcmp(args[0], blt_in[i]) == 0)
 		{
 			return ((*blt_inFuncs[i])(args));
 		}
-		i++;
 	}
 	return (execNew(args));	/*for execNew see 2_exeNew.c*/
 }

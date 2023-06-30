@@ -7,17 +7,14 @@
 
 int main(void)
 {
-	for (;;)
+	if (isatty(STDIN_FILENO) == 1)
 	{
-		if (isatty(STDIN_FILENO) == 1)
-		{
-			isInteractive();
-		}
-		else
-		{
-			isNOTinteractive();
-		}
-
+		isInteractive();
 	}
+	else
+	{
+		isNOTinteractive();
+	}
+
 	return (0);
 }
