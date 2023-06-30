@@ -1,6 +1,6 @@
 #include "mjshell.h"
 /**
-*is_NotInteractive – A function that takes us back to terminal prompt
+*is_NotInteractive - function that takes us back to terminal prompt
 *Authors:Magdalene and Jeniffer
 *Return: void
 */

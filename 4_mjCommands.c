@@ -1,11 +1,11 @@
 
 #include "mjshell.h"
 /**
-*cdDir – A function that changes a directory
-*Authors:Magdalene a nd Jeniffer
-*@mj_arg_s: the directory to change into
-*Return: 1
-*/
+ * cdDir - A function that changes a directory
+ * Authors:Magdalene a nd Jeniffer
+ * @mj_arg_s: the directory to change into
+ * Return: 1
+ */
 int cdDir(char **mj_arg_s)
 {
 if (mj_arg_s[1] == NULL)

@@ -1,11 +1,11 @@
 #include "mjshell.h"
 
 /**
-*execNew – A function that generates a new execution in a simple shell
-*Authors Magdalene  and Jeniffer
-*@mj_arg_s: string array
-*Return: 1
-*/
+ * execNew - A function that generates a new execution in a simple shell
+ * Authors Magdalene  and Jeniffer
+ * @mj_arg_s: string array
+ * Return: 1
+ */
 int execNew(char **mj_arg_s)
 {
 pid_t pid;

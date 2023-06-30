@@ -2,7 +2,7 @@
 #include "mjshell.h"
 
 /**
-*execveMj_arg_s –A fuction that checks if the comds are part of builtin
+*execveMj_arg_s - A fuction that checks if the comds are part of builtin
 *Authors: Magdalene and Jeniffer
 *@mj_arg_s: commands
 *Return: 1, otherwise 0
@@ -22,7 +22,7 @@ int (*executableFunction[])(char **) = {
 &mjExit
 };
 
-long unsigned int i = 0;
+unsigned long int i = 0;
 if (mj_arg_s[0] == NULL)
 {
 return (-1);

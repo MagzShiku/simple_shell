@@ -1,7 +1,7 @@
 #include "mjshell.h"
 
 /**
-*mjExit – A function that exists from our shell
+*mjExit - A function that exists from our shell
 *Authors:Magdalene and Jeniffer
 *@mj_arg_s: the arguments
 *Return: 0

@@ -1,15 +1,15 @@
 #include "mjshell.h"
 
 /**
-*readInput –  A function that reads input from user
+*readInput - A function that reads input from user
 *Authors:Magdalene and Jeniffer
 *Return: pointer to string input
 */
 char *readInput(void)
 {
-size_t size_BuFFer = 0;        
+size_t size_BuFFer = 0;
 char *input = NULL;
-if (getline(&input, &size_BuFFer, stdin) == -1) 
+if (getline(&input, &size_BuFFer, stdin) == -1)
 {
 if (feof(stdin))
 {

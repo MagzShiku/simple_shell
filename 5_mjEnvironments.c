@@ -1,6 +1,6 @@
 #include "mjshell.h"
 /**
-*mjEnviron – A function that prints our working environment
+*mjEnviron - A function that prints our working environment
 *Authors:Magdalene and Jeniffer
 *@mj_arg_s: the argumtnts
 *Return: 1

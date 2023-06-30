@@ -1,6 +1,6 @@
 #include "mjshell.h"
 /**
-*needHelp – A function that helps the user upon request
+*needHelp - A function that helps the user upon request
 *Authors:Magdalene and Jeniffer
 *@mj_arg_s: the arguments inputed
 *Return: 1
@@ -13,7 +13,7 @@ char *terminal_functions[] = {
 "help",
 "exit"
 };
-long unsigned int i = 0;
+unsigned long int i = 0;
 (void)(**mj_arg_s);
 
 printf("\n:::type ---help for support\n");
