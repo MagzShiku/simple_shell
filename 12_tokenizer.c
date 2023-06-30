@@ -1,51 +1,44 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * tokenizer - tokenizes the line so it can execute
- * @input: the input to be read
- * "input" related with other functions please look at other files
- * Return: pointer to array
+ * split_line - split a string into multiple strings
+ * @line: string to be splited
+ *
+ * Return: pointer that points to the new array
  */
-
-char **tokenizer(char *input)
+char **split_line(char *line)
 {
-	char *tkn;
-	char **tokens;
-	int i;
-	int bufSize;
+	int bufsize = 64;
+	int i = 0;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
 
-	bufSize = 64;
-	tokens = malloc(bufSize * sizeof(char *));
-	i = 0;
-
-	if (tokens == NULL)
+	if (!tokens)
 	{
-		fprintf(stderr, "Memory allocation failed.\n");
+		fprintf(stderr, "allocation error in split_line: tokens\n");
 		exit(EXIT_FAILURE);
 	}
-	tkn = strtok(input, MJ_DELIMITER);
-
-	while (tkn != NULL)
+	token = strtok(line, TOK_DELIM);
+	while (token != NULL)
 	{
-		if (tkn[0] == '#')
+		/* handle comments */
+		if (token[0] == '#')
 		{
-		break;
+			break;
 		}
-		tokens[i] = tkn;
+		tokens[i] = token;
 		i++;
-
-		if (i >= bufSize)
+		if (i >= bufsize)
 		{
-			bufSize *= 2;
-			tokens = realloc(tokens, bufSize * sizeof(char *));
-
-			if (tokens == NULL)
+			bufsize += bufsize;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
 			{
-				fprintf(stderr, "mem realloc error\n");
+				fprintf(stderr, "reallocation error in split_line: tokens");
 				exit(EXIT_FAILURE);
 			}
 		}
-		tkn = strtok(NULL, MJ_DELIMITER);
+		token = strtok(NULL, TOK_DELIM);
 	}
 	tokens[i] = NULL;
 	return (tokens);

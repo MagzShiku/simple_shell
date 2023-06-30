@@ -1,40 +1,41 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * execveArgs - checks to see if the command is built in or not
- * @args: the arguments in the commands
- * Return: 1
+ * execute_args - map if command is a builtin or a process
+ * @args: command and its flags
+ *
+ * Return: 1 on sucess, 0 otherwise
  */
-
-int execveArgs(char **args)
+int execute_args(char **args)
 {
-	unsigned long int i;
-	char *blt_in[] = {
+	char *builtin_func_list[] = {
 		"cd",
 		"env",
 		"help",
 		"exit"
 	};
-	int (*blt_inFuncs[])(char **) = {
-		&mjCommands, /*see file 4_mjCommands.c*/
-		&mjEnvironment, /*5_mjEnvironments.c*/
-		&mjHelp, /*see file 8_mjHelp.c*/
-		&mjExit /*see file 6_mjExits.c*/
-
-
+	int (*builtin_func[])(char **) = {
+		&own_cd,
+		&own_env,
+		&own_help,
+		&own_exit
 	};
+	long unsigned int i = 0;
 
 	if (args[0] == NULL)
 	{
+		/* empty command was entered */
 		return (-1);
 	}
-	i = 0;
-	for (; i < sizeof(blt_in) / sizeof(char *); i++)
+	/* find if the command is a builtin */
+	for (; i < sizeof(builtin_func_list) / sizeof(char *); i++)
 	{
-		if (strcmp(args[0], blt_in[i]) == 0)
+		/* if there is a match execute the builtin command */
+		if (strcmp(args[0], builtin_func_list[i]) == 0)
 		{
-			return ((*blt_inFuncs[i])(args));
+			return ((*builtin_func[i])(args));
 		}
 	}
-	return (execNew(args));	/*for execNew see 2_exeNew.c*/
+	/* create a new process */
+	return (new_process(args));
 }

@@ -1,30 +1,27 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * isNOTinteractive - the shell not beig interractive
+ * shell_no_interactive - unix command line interpreter
+ *
  * Return: void
  */
-
-void isNOTinteractive(void)
+void shell_no_interactive(void)
 {
-	int _status;
-	char *input;
+	char *line;
 	char **args;
-
-	_status = -1;  /*this function is related to 3_is_interactive.c*/
+	int status = -1;
 
 	do {
-		_status = execveArgs(args); /*see file 1_execveArgs.c*/
-		args = tokenizer(input);     /*see file 12_tokenizer.c*/
-		input = strmRead();    /*see file 9_inputRead.c*/
-
-		free(input);
+		line = read_stream();
+		args = split_line(line); /* tokenize line */
+		status = execute_args(args);
+		/* avoid memory leaks */
+		free(line);
 		free(args);
-
-		if (_status >= 0)
+		/* exit with status */
+		if (status >= 0)
 		{
-			exit(_status);
+			exit(status);
 		}
-	} while (_status == -1);
-
+	} while (status == -1);
 }

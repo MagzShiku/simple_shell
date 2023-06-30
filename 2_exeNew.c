@@ -1,36 +1,37 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * execNew - this bring in a new process execution
- * @args: the arguments in the process
- * Return: 1 for success, 0 for failure
+ * new_process - create a new process
+ * @args: array of strings that contains the command and its flags
+ *
+ * Return: 1 if success, 0 otherwise.
  */
-
-int execNew(char **args)
+int new_process(char **args)
 {
-	pid_t mjPid;
-	int _status;
+	pid_t pid;
+	int status;
 
-	mjPid = fork();
-
-	if (mjPid == 0)
+	pid = fork();
+	if (pid ==  0)
 	{
+		/* child process */
 		if (execvp(args[0], args) == -1)
 		{
-			fprintf(stderr, "Cannot complete new child process\n");
+			perror("error in new_process: child process");
 		}
 		exit(EXIT_FAILURE);
 	}
-	else if (mjPid < 0)
+	else if (pid < 0)
 	{
-		fprintf(stderr, "Forking Error\n");
+		/* error forking */
+		perror("error in new_process: forking");
 	}
 	else
 	{
+		/* parent process */
 		do {
-			waitpid(mjPid, &_status, WUNTRACED);
-		} while (!WIFEXITED(_status) && !WIFSIGNALED(_status));
-
+			waitpid(pid, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
 	return (-1);
 }

@@ -1,22 +1,22 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * mjCommands - this will link to the command cd that changes dirs
- * @args: the dir in question
- * Return: 1 on success
+ * own_cd - changes the working dir of the current shell executon env
+ * @args: target directory
+ *
+ * Return: 1 one success, 0 otherwise.
  */
-
-int mjCommands(char **args)
+int own_cd(char **args)
 {
 	if (args[1] == NULL)
 	{
-		fprintf(stderr, "did you mean \"cd\"\n");
+		fprintf(stderr, "expected argument to \"cd\"\n");
 	}
 	else
 	{
-		if (chdir(args[1]) != 0) /*can man chdir*/
+		if (chdir(args[1]) != 0)
 		{
-			fprintf(stderr, "Error changing directory");
+			perror("error in own_cd.c: changing dir\n");
 		}
 	}
 	return (-1);

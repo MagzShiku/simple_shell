@@ -1,35 +1,29 @@
-#include "mjshell.h"
-/**
- * mjHelp - out help function
- * @args: the args to check out for
- * Return: 1
- */
+#include "shell.h"
 
-int mjHelp(char **args)
+/**
+ * own_help - print help
+ * @args: arguments
+ *
+ * Return: 1 on success, 0 otherwise
+ */
+int own_help(char **args)
 {
-	unsigned long int mj = 0;
-	char *blt_in[] = {
+	char *builtin_func_list[] = {
 		"cd",
 		"env",
 		"help",
 		"exit"
 	};
-	mj = 0;
+	long unsigned int i = 0;
 	(void)(**args);
 
-	printf("\n --Hallo, how can I help you--\n");
-	printf("type a command\n");
-	printf("press Enter\n");
-	printf("The built in commands\n");
-
-
-	for (; mj < sizeof(blt_in) / sizeof(char *); mj++)
+	printf("\n---help simple_shell---\n");
+	printf("Type a command and its arguments, then hit enter\n");
+	printf("Built-in commands:\n");
+	for (; i < sizeof(builtin_func_list) / sizeof(char *); i++)
 	{
-		printf(" -> %s\n", blt_in[mj]);
+		printf("  -> %s\n", builtin_func_list[i]);
 	}
-
-	printf("you can man also.\n");
-
+	printf("Use the man command for information on other programs.\n\n");
 	return (-1);
-
 }

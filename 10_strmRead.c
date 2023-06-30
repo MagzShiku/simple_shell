@@ -1,46 +1,47 @@
-#include "mjshell.h"
-/**
- * strmRead - reads lines from stream
- * Return: pointer to pointer to lines read
- */
-char *strmRead(void)
-{
-	int i = 0;
-	int bufSize = 1024;
-	char *input;
-	int c;
+#include "shell.h"
 
-	input = malloc(sizeof(char) * bufSize);
-	if (!input)
+/**
+ * read_stream - read a line from the stream
+ *
+ * Return: pointer that points the the read line
+ */
+char *read_stream(void)
+{
+	int bufsize = 1024;
+	int i = 0;
+	char *line = malloc(sizeof(char) * bufsize);
+	int character;
+
+	if (line == NULL)
 	{
-		fprintf(stderr, "Read-stream failure\n");
+		fprintf(stderr, "allocation error in read_stream");
 		exit(EXIT_FAILURE);
 	}
 	while (1)
 	{
-		c = getchar(); /*standard input/output library in C*/
-		if (c == EOF)
+		character = getchar(); /* read first char from stream */
+		if (character == EOF)
 		{
-			free(input);
+			free(line);
 			exit(EXIT_SUCCESS);
 		}
-		else if (c == '\n')
+		else if (character == '\n')
 		{
-			input[i] = '\0';
-			return (input);
+			line[i] = '\0';
+			return (line);
 		}
 		else
 		{
-			input[i] = c;
+			line[i] = character;
 		}
 		i++;
-		if (i >= bufSize)
+		if (i >= bufsize)
 		{
-			bufSize *= 2;
-			input = realloc(input, bufSize);
-			if (!input)
+			bufsize += bufsize;
+			line = realloc(line, bufsize);
+			if (line == NULL)
 			{
-				fprintf(stderr, "Reallocation in reading stream has failed\n");
+				fprintf(stderr, "reallocation error in read_stream");
 				exit(EXIT_FAILURE);
 			}
 		}

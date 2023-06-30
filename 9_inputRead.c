@@ -1,32 +1,28 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * inputRead - receives the input command
- * Return: pointer to str
+ * read_line - read a line from stdin
+ *
+ * Return: pointer that points to a str with the line content
  */
-
-char *inputRead(void)
+char *read_line(void)
 {
-	char *input;
-	size_t bufSize;
+	char *line = NULL;
+	size_t bufsize = 0;
 
-	input = NULL;
-	bufSize = 0;
-
-	if (getline(&input, &bufSize, stdin) == -1)
+	if (getline(&line, &bufsize, stdin) == -1) /* if getline fails */
 	{
-		if (feof(stdin))
+		if (feof(stdin)) /* test for the eof */
 		{
-			free(input);
-			exit(EXIT_SUCCESS);
+			free(line); /* avoid memory leaks when ctrl + d */
+			exit(EXIT_SUCCESS); /* we recieved an eof */
 		}
 		else
 		{
-			free(input);
-			fprintf(stderr, "Error reading from input");
+			free(line); /* avoid memory leaks when getline fails */
+			perror("error while reading the line from stdin");
 			exit(EXIT_FAILURE);
 		}
 	}
-	return (input);
-
+	return (line);
 }

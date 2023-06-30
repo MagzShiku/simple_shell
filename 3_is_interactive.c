@@ -1,32 +1,28 @@
-#include "mjshell.h"
+#include "shell.h"
 
 /**
- * isInteractive - checks interactivity of CLI
+ * shell_interactive - UNIX command line interpreter
+ *
  * Return: void
  */
-
-void isInteractive(void)
+void shell_interactive(void)
 {
-	char *input;
+	char *line;
 	char **args;
-	int _status;
-
-	_status = -1;
+	int status = -1;
 
 	do {
-		printf("mjshell$ ");
-
-		input = inputRead();	/*see file 9_inputRead.c*/
-		args = tokenizer(input);	/*see file 12_tokenizer.c*/
-
-		_status = execveArgs(args);	/*see file 1_execveArgs.c*/
-
-		free(input);
+		printf("simple_prompt$ "); /* print prompt symbol */
+		line = read_line(); /* read line from stdin */
+		args = split_line(line); /* tokenize line */
+		status = execute_args(args);
+		/* avoid memory leaks */
+		free(line);
 		free(args);
-
-		if (_status >= 0)
+		/* exit with status */
+		if (status >= 0)
 		{
-			exit(_status);
+			exit(status);
 		}
-	} while (_status == -1);
+	} while (status == -1);
 }

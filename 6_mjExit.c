@@ -1,21 +1,21 @@
-#include "mjshell.h"
-/**
- * mjExit - exits the terminsl
- * @args: the args to check out for
- * Return: 0 for success
- */
+#include "shell.h"
 
-int mjExit(char **args)
+/**
+ * own_exit - couses normal process termination
+ * @args: empty args
+ *
+ * Return: 0 to terminate the process
+ */
+int own_exit(char **args)
 {
-	while (1)
+	/* exit with status */
+	if (args[1])
 	{
-		if (args[1])
-		{
-			return (atoi(args[1]));
-		}
-		else
-		{
-			return (0);
-		}
+		return (atoi(args[1]));
+	}
+	/* exit success */
+	else
+	{
+		return (0);
 	}
 }
