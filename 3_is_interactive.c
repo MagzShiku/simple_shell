@@ -1,4 +1,4 @@
-#inclide "mjshell.h"
+#include "mjshell.h"
 
 /**
  * isInteractive - checks interactivity of CLI
@@ -17,16 +17,16 @@ void isInteractive(void)
 		printf("mjshell$ ");
 
 		input = inputRead();	/*see file 9_inputRead.c*/
-		args = tokenizer();	/*see file 12_tokenizer.c*/
+		args = tokenizer(input);	/*see file 12_tokenizer.c*/
 
-		_status = execveArgs();	/*see file 1_execveArgs.c*/
+		_status = execveArgs(args);	/*see file 1_execveArgs.c*/
 
 		free(input);
 		free(args);
 
 		if (_status >= 0)
 		{
-			exit(_status);	
+			exit(_status);
 		}
-	} while (status == -1);
+	} while (_status == -1);
 }

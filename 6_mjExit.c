@@ -7,12 +7,15 @@
 
 int mjExit(char **args)
 {
-	while (args[1])
+	while (1)
 	{
-		return (atoi(args[1]));
-	}
-	else
-	{
-		return (0);
+		if (args[1])
+		{
+			return (atoi(args[1]));
+		}
+		else
+		{
+			return (0);
+		}
 	}
 }

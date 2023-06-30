@@ -9,17 +9,17 @@
 int execNew(char **args)
 {
 	pid_t mjPid;
-	int _stat;
+	int _status;
 
-	mj_pid = fork();
+	mjPid = fork();
 
 	if (mjPid == 0)
 	{
-		if (exexcvp(args[0], args) == -1)
+		if (execvp(args[0], args) == -1)
 		{
 			fprintf(stderr, "Cannot complete new child process\n");
 		}
-		exit(Exit_failure);
+		exit(EXIT_FAILURE);
 	}
 	else if (mjPid < 0)
 	{
@@ -28,7 +28,7 @@ int execNew(char **args)
 	else
 	{
 		do {
-			waitpid(mjPid, &_stat, WUNTRACED);
+			waitpid(mjPid, &_status, WUNTRACED);
 		} while (!WIFEXITED(_status) && !WIFSIGNALED(_status));
 
 	}
