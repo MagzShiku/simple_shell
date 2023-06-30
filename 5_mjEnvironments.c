@@ -1,21 +1,23 @@
-#include "shell.h"
-
+#include "mjshell.h"
 /**
- * own_env - function that prints enviroment variables
- * @args: arguments
- *
- * Return: 1 on success, 0 otherwise
- */
-int own_env(char **args)
+*mjEnviron – A function that prints our working environment
+*Authors:Magdalene and Jeniffer
+*@mj_arg_s: the argumtnts
+*Return: 1
+*/
+int mjEnviron(char **mj_arg_s)
 {
-	int i = 0;
-	(void)(**args);
+int i = 0;
 
-	while (environ[i])
-	{
-		write(STDOUT_FILENO, environ[i], strlen(environ[i]));
-		write(STDOUT_FILENO, "\n", 1);
-		i++;
-	}
-	return (-1);
+(void)(**mj_arg_s);
+
+while (environ[i])
+{
+write(STDOUT_FILENO, environ[i], strlen(environ[i]));
+write(STDOUT_FILENO, "\n", 1);
+i++;
 }
+return (-1);
+}
+
+

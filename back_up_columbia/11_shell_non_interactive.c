@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * shell_no_interactive - unix command line interpreter
- *
+ * shell_no_interactive - A function that interpretes a unix command
+ *Authors: Magdalene and Jeniffer
  * Return: void
  */
 void shell_no_interactive(void)
@@ -13,15 +13,14 @@ void shell_no_interactive(void)
 
 	do {
 		line = read_stream();
-		args = split_line(line); /* tokenize line */
+		args = split_line(line);
 		status = execute_args(args);
-		/* avoid memory leaks */
 		free(line);
 		free(args);
-		/* exit with status */
 		if (status >= 0)
 		{
 			exit(status);
 		}
-	} while (status == -1);
+	}
+	while (status == -EOF);
 }

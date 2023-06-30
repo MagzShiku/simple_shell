@@ -1,37 +1,36 @@
-#include "shell.h"
+#include "mjshell.h"
 
 /**
- * new_process - create a new process
- * @args: array of strings that contains the command and its flags
- *
- * Return: 1 if success, 0 otherwise.
- */
-int new_process(char **args)
+*execNew – A function that generates a new execution in a simple shell
+*Authors Magdalene  and Jeniffer
+*@mj_arg_s: string array
+*Return: 1
+*/
+int execNew(char **mj_arg_s)
 {
-	pid_t pid;
-	int status;
+pid_t pid;
+int mj_stat;
 
-	pid = fork();
-	if (pid ==  0)
-	{
-		/* child process */
-		if (execvp(args[0], args) == -1)
-		{
-			perror("error in new_process: child process");
-		}
-		exit(EXIT_FAILURE);
-	}
-	else if (pid < 0)
-	{
-		/* error forking */
-		perror("error in new_process: forking");
-	}
-	else
-	{
-		/* parent process */
-		do {
-			waitpid(pid, &status, WUNTRACED);
-		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
-	}
-	return (-1);
+pid = fork();
+if (pid ==  0)
+{
+if (execvp(mj_arg_s[0], mj_arg_s) == -1)
+{
+perror("error: process fail");
 }
+exit(EXIT_FAILURE);
+}
+else if (pid < 0)
+{
+perror("forking error.");
+}
+else
+{
+do {
+waitpid(pid, &mj_stat, WUNTRACED);
+} while (!WIFEXITED(mj_stat) && !WIFSIGNALED(mj_stat));
+}
+return (-1);
+}
+
+

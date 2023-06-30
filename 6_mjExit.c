@@ -1,21 +1,20 @@
-#include "shell.h"
+#include "mjshell.h"
 
 /**
- * own_exit - couses normal process termination
- * @args: empty args
- *
- * Return: 0 to terminate the process
- */
-int own_exit(char **args)
+*mjExit – A function that exists from our shell
+*Authors:Magdalene and Jeniffer
+*@mj_arg_s: the arguments
+*Return: 0
+*/
+int mjExit(char **mj_arg_s)
 {
-	/* exit with status */
-	if (args[1])
-	{
-		return (atoi(args[1]));
-	}
-	/* exit success */
-	else
-	{
-		return (0);
-	}
+if (mj_arg_s[1])
+{
+return (atoi(mj_arg_s[1]));
 }
+else
+{
+return (0);
+}
+}
+

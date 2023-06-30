@@ -1,20 +1,20 @@
-#include "shell.h"
+#include "mjshell.h"
 
 /**
- * main - function that checks if our shell is called
- *
- * Return: 0 on success
- */
+*main – main entry into function
+*Authors: Magdalene and Jeniffer
+*Return: 0 on success
+*/
 int main(void)
 {
-	/* determines if file descriptor is associated with a terminal */
-	if (isatty(STDIN_FILENO) == 1)
-	{
-		shell_interactive();
-	}
-	else
-	{
-		shell_no_interactive();
-	}
-	return (0);
+if (isatty(STDIN_FILENO) == 1)
+{
+isIinteractive();
 }
+else
+{
+is_NotInteractive();
+}
+return (0);
+}
+
